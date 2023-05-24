@@ -100,7 +100,7 @@ services:
       - "traefik.http.middlewares.nextcloudsts.headers.stspreload=true"
       - "traefik.http.middlewares.nextcloudsts.headers.stsseconds=31536000"
       - "traefik.http.middlewares.nextcloudsts.headers.isdevelopment=false"
-      - "traefik.http.routers.service.middlewares=nextcloudsts"
+      - "traefik.http.routers.nextcloud.middlewares=nextcloudsts"
       - "traefik.docker.network=web"
 
 networks:
