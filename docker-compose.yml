@@ -22,24 +22,6 @@ services:
     networks:
       - default
 
-#  myadmin:
-#    image: phpmyadmin
-#    container_name: nextcloud_myadmin
-#    restart: unless-stopped
- #   ports:
- #     - 9021:80
- #   depends_on:
-#      mariadb:
-#        condition: service_healthy
-#    links:
-#      - mariadb
-#    environment:
-#      - TZ=Europe/Berlin
-#      - MYSQL_USER=root
-#      - MYSQL_PASSWORD=nextcloud
-#    networks:
-#      - internal
-
   nextcloud-redis:
     image: redis
     container_name: nextcloud-redis
@@ -89,19 +71,19 @@ services:
       - web
       - default
     labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.nextcloud.rule=Host(`${NEXT_CLOUD_DOMAIN}`)"
-      - "traefik.http.routers.nextcloud.entrypoints=websecure"
-      - "traefik.http.routers.nextcloud.tls=true"
-      - "traefik.http.routers.nextcloud.tls.certresolver=myresolver"
-      - "traefik.http.routers.nextcloud.service=nextcloud"
-      - "traefik.http.services.nextcloud.loadbalancer.server.port=80"
-      - "traefik.http.middlewares.nextcloudsts.headers.stsincludesubdomains=false"
-      - "traefik.http.middlewares.nextcloudsts.headers.stspreload=true"
-      - "traefik.http.middlewares.nextcloudsts.headers.stsseconds=31536000"
-      - "traefik.http.middlewares.nextcloudsts.headers.isdevelopment=false"
-      - "traefik.http.routers.nextcloud.middlewares=nextcloudsts"
-      - "traefik.docker.network=web"
+      traefik.enable: true
+      traefik.http.routers.nextcloud.rule: Host(`${NEXT_CLOUD_DOMAIN}`)
+      traefik.http.routers.nextcloud.entrypoints: websecure
+      traefik.http.routers.nextcloud.tls: true
+      traefik.http.routers.nextcloud.tls.certresolver: myresolver
+      traefik.http.routers.nextcloud.service: nextcloud
+      traefik.http.services.nextcloud.loadbalancer.server.port: 80
+      traefik.http.middlewares.nextcloudsts.headers.stsincludesubdomains: false
+      traefik.http.middlewares.nextcloudsts.headers.stspreload: true
+      traefik.http.middlewares.nextcloudsts.headers.stsseconds: 31536000
+      traefik.http.middlewares.nextcloudsts.headers.isdevelopment: false
+      traefik.http.routers.nextcloud.middlewares: nextcloudsts
+      traefik.docker.network: web
 
 networks:
   web:
