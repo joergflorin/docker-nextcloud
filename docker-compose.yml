@@ -7,7 +7,7 @@ services:
     restart: unless-stopped
     command: --transaction-isolation=READ-COMMITTED --innodb_read_only_compressed=OFF
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-u", "root", "--password=nextcloud"]
+      test: ["CMD", "mariadb-admin", "ping", "-u", "root", "--password=nextcloud"]
       interval: 10s
       timeout: 5s
       retries: 10
