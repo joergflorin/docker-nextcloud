@@ -85,6 +85,11 @@ services:
       traefik.http.routers.nextcloud.middlewares: nextcloudsts
       traefik.docker.network: web
 
+      ofelia.enabled: "true"
+      ofelia.job-exec.nextcloud-cron.schedule: "@every 5m"
+      ofelia.job-exec.nextcloud-cron.command: "runuser -u www-data -- php /var/www/html/cron.php"
+
+
 networks:
   web:
     external: true
