@@ -2,7 +2,7 @@ version: "3.3"
 
 services:
   nextcloud-db:
-    image: mariadb
+    image: mariadb:11.4
     container_name: nextcloud-db
     restart: unless-stopped
     command: --transaction-isolation=READ-COMMITTED --innodb_read_only_compressed=OFF
@@ -21,6 +21,21 @@ services:
       - MYSQL_USER=nextcloud
     networks:
       - default
+ 
+#  phpmyadmin:
+#    image: phpmyadmin
+#    container_name: nextcloud-myphpadmin
+#    restart: unless-stopped
+#    environment:
+#      PMA_HOST: nextcloud-db
+#      PMA_USER: nextcloud
+#      PMA_PASSWORD: ${MYSQL_PASSWORD}
+#    ports:
+#      - "8090:80"
+#    depends_on:
+#      - nextcloud-db
+#    networks:
+#      - default
 
   nextcloud-redis:
     image: redis
